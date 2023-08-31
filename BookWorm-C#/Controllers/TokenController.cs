@@ -1,4 +1,5 @@
 ﻿
+using BookCore_1.Models;
 using BookWorm_C_.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,9 +16,9 @@ namespace BookWorm_C_.Entities
     public class TokenController : ControllerBase
     {
         public IConfiguration _configuration;
-        private readonly ProjectContext _context;
+        private readonly BookWormContext _context;
 
-        public TokenController(IConfiguration config, ProjectContext context)
+        public TokenController(IConfiguration config, BookWormContext context)
         {
             _configuration = config;
             _context = context;

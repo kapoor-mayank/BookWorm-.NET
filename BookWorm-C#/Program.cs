@@ -1,5 +1,6 @@
 
 using BookWorm_C_.Entities;
+using BookWorm_C_.Entities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -18,7 +19,7 @@ namespace BookWorm_C_
 
             builder.Services.AddControllers();
             var b = builder.Configuration.GetConnectionString("ProjectDatabase");
-            builder.Services.AddDbContext<ProjectContext>((op) => op.UseSqlServer(b));
+            builder.Services.AddDbContext<BookWormContext>((op) => op.UseSqlServer(b));
             var config = builder.Configuration;
 
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(
