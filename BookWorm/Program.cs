@@ -22,7 +22,7 @@ namespace ProductTypeMasterWorm
 
              builder.Services.AddDbContextPool<AppDbContext>((options, context) =>
             {
-                var connectionString = builder.Configuration.GetConnectionString("mysql");
+                var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
                 context.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
             });
           
