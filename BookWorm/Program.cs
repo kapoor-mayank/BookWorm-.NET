@@ -17,8 +17,14 @@ namespace ProductTypeMasterWorm
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-            var b = builder.Configuration.GetConnectionString("mysql");
-            builder.Services.AddDbContextPool<AppDbContext>((op) => op.UseSqlServer(b));
+          //  var b = builder.Configuration.GetConnectionString("mysql");
+        //  builder.Services.AddDbContextPool<AppDbContext>((op) => op.UseSqlServer(b));
+
+             builder.Services.AddDbContextPool<AppDbContext>((options, context) =>
+            {
+                var connectionString = builder.Configuration.GetConnectionString("mysql");
+                context.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
+            });
           
             builder.Services.AddTransient<IProductTypeMaster,ProductTypeMasterRepository>();
             builder.Services.AddTransient<IPublisherMaster,PublisherMasterRepository>();
