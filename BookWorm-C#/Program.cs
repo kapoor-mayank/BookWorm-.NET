@@ -1,11 +1,13 @@
 
 using BookWorm_C_.Entities;
-using BookWorm_C_.Entities;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
+using BookWorm_C_.Controllers;
+using NuGet.Protocol.Core.Types;
+using BookWorm_C_.Services;
 
 namespace BookWorm_C_
 {
@@ -17,7 +19,17 @@ namespace BookWorm_C_
 
             // Add services to the container.
 
+            
+            
             builder.Services.AddControllers();
+            builder.Services.AddTransient<IAttributeMasterRepository, SQLAttributeMasterRepository>();
+            builder.Services.AddTransient<ICustomerRepository, SQLCustomerRepository>();
+            builder.Services.AddTransient<ICartRepository,SQLCartRepository>();
+            builder.Services.AddTransient<IProductAttributeRepository, SQLProductAttributeRepository>();
+            builder.Services.AddTransient<IProductTypeRepository, SQLProductTypeRepository>();
+            builder.Services.AddTransient<IBeneficiaryRepository, SQLBeneficiaryRepository>();
+            builder.Services.AddTransient<IRoyaltyCalculation,SQLRoyaltyCalculationRepository>();
+            builder.Services.AddTransient<IInvoiceDetailRepository, SQLInvoiceDetailRepository>();
             var b = builder.Configuration.GetConnectionString("ProjectDatabase");
             builder.Services.AddDbContext<BookWormContext>((op) => op.UseSqlServer(b));
             var config = builder.Configuration;
@@ -78,7 +90,8 @@ namespace BookWorm_C_
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
-
+            app.UseRouting();
+            app.UseCors(x => x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 
             app.UseHttpsRedirection();
             app.UseAuthentication();
