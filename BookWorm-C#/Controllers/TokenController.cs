@@ -1,6 +1,6 @@
-﻿
-using BookCore_1.Models;
-using BookWorm_C_.Entities;
+﻿using BookWorm_C_.Entities;
+using Microsoft.AspNetCore.Cors;
+//using BookWorm_C_.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,10 +9,12 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 
-namespace BookWorm_C_.Entities
+namespace BookWorm_C_.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors("*")]
+
     public class TokenController : ControllerBase
     {
         public IConfiguration _configuration;
@@ -39,7 +41,7 @@ namespace BookWorm_C_.Entities
                     new Claim(JwtRegisteredClaimNames.Sub, _configuration["Jwt:Subject"]),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                     new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
-                    new Claim("Id", user.UserId.ToString()),
+                    new Claim("Id", user.UserInfoId.ToString()),
                     new Claim("FirstName", user.FirstName),
                     new Claim("LastName", user.LastName),
                     new Claim("UserName", user.UserName),

@@ -1,11 +1,12 @@
-﻿using System;
+﻿using BookWorm_C_.Entities;
+using System;
 using System.Collections.Generic;
 
 namespace BookWorm_C_.Entities;
 
 public partial class UserInfo
 {
-    public int UserId { get; set; }
+    public int UserInfoId { get; set; }
 
     public string FirstName { get; set; } = null!;
 
